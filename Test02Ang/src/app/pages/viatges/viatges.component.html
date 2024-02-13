@@ -1,0 +1,90 @@
+<h1>VIATGES</h1>
+
+<a routerLink="/login">ves a login</a>
+
+<form [formGroup]="viatgeForm" (ngSubmit)="guardarViatge()">
+  <div>
+    <label for="Id">Id: </label>
+    <input type="number" id="id" formControlName="id" />
+  </div>
+  <div>
+    <label for="Origen">Origen: </label>
+    <input type="text" id="origen" formControlName="origen" />
+    <div *ngIf="viatgeForm.get('origen')!.hasError('minlength')">
+      La l'origen ha de tenir com a mínim 4 caràcters
+    </div>
+  </div>
+  <!-- ------------------------------- -->
+  <div>
+    <label for="Destinació">Destinació: </label>
+    <input type="text" id="destinacio" formControlName="destinacio" />
+
+    <div *ngIf="viatgeForm.get('destinacio')!.hasError('minlength')">
+      La destinació ha de tenir com a mínim 4 caràcters
+    </div>
+  </div>
+
+  <!-- ------------------------------- -->
+  <div>
+    <label for="Preu">Preu: </label>
+    <input type="number" id="preu" formControlName="preu" />
+    <div *ngIf="viatgeForm.get('preu')!.errors?.['preuInvalid']">
+      El preu no pot ser 0€
+    </div>
+  </div>
+  <div>
+    <label for="pais">País: </label>
+    <input type="text" id="pais" formControlName="pais" />
+  </div>
+  <div *ngIf="viatgeForm.get('pais')!.hasError('minlength')">
+    El país ha de tenir com a mínim 4 caràcters
+  </div>
+  <div>
+    <label for="Descripció">Descripció: </label>
+    <textarea
+      type="text"
+      id="descripcio"
+      formControlName="descripcio"
+    ></textarea>
+    <div *ngIf="viatgeForm.get('descripcio')!.hasError('minlength')">
+      La destinació ha de tenir com a mínim 4 caràcters
+    </div>
+  </div>
+  <div>* Tots els camps són obligatoris</div>
+  <button type="submit" [disabled]="viatgeForm.invalid">Guardar</button>
+</form>
+
+<ul>
+  @for(viatge of viatges;track $index){
+  <li (click)="showViatge($index)">{{ viatge.destinacio }}</li>
+  }
+</ul>
+
+<div *ngIf="viatgesSelected">
+  <div *ngIf="showIdText">
+    <div>Id: {{ viatgesSelected.id }}</div>
+  </div>
+
+  <br />
+  <div *ngIf="showIdText">
+    <div>Origen: {{ viatgesSelected.origen }}</div>
+  </div>
+  <br />
+  <div *ngIf="showIdText">
+    <div>Destinació: {{ viatgesSelected.destinacio }}</div>
+  </div>
+  <br />
+  <div *ngIf="showIdText">
+    <div>Preu: {{ viatgesSelected.preu }}</div>
+  </div>
+  <br />
+  <div *ngIf="showIdText">
+    <div>País: {{ viatgesSelected.pais }}</div>
+  </div>
+  <br />
+  <div *ngIf="showIdText">
+    <div>Descripció: {{ viatgesSelected.descripcio }}</div>
+  </div>
+
+  <button type="button" (click)="closeSession()">Logout</button>
+</div>
